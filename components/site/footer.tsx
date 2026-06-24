@@ -29,7 +29,7 @@ export function Footer() {
             <a href="#" className="flex items-center gap-3">
               {/* Logo z obrazkiem */}
               <Image
-                src="/logo.png" // Ścieżka do Twojego logo
+                src="/logo.webp" // Ścieżka do Twojego logo
                 alt="MKT Lab - Logo"
                 width={32}
                 height={32}

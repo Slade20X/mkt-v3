@@ -37,7 +37,7 @@ export function Navbar() {
         {/* Logo - po lewej */}
         <a href="#" className="flex items-center gap-2">
           <Image
-            src="/logo.png"
+            src="/logo.webp"
             alt="Logo"
             width={32}
             height={32}

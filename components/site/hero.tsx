@@ -165,10 +165,10 @@ export function Hero() {
               <span className="size-3 rounded-full bg-muted-foreground/30" />
             </div>
             <Image
-              src="/dashboard-mockup.png"
+              src="/dashboard-mockup.webp"
               alt="Dashboard MKT Lab - przykładowy panel analityczny z wykresami wzrostu przychodów i ROAS"
-              width={1600}
-              height={1000}
+              width={1200}
+              height={750}
               priority
               className="h-auto w-full"
               title="Panel analityczny MKT Lab"
