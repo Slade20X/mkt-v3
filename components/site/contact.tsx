@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, type FormEvent } from 'react'
-import { ArrowRight, CheckCircle2, Clock, Mail, MapPin, Phone } from 'lucide-react'
+import { ArrowRight, CheckCircle2, Clock, Mail, MapPin, Phone, Loader2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Reveal } from '@/components/site/reveal'
 import { FacebookIcon } from '@/components/site/brand-icons'
@@ -30,10 +30,44 @@ const socials = [
 
 export function Contact() {
   const [submitted, setSubmitted] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
-  function handleSubmit(e: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
-    setSubmitted(true)
+    setLoading(true)
+    setError(null)
+
+    const formData = new FormData(e.currentTarget)
+    const data = {
+      name: formData.get('name'),
+      email: formData.get('email'),
+      phone: formData.get('phone') || '',
+      company: formData.get('company') || '',
+      message: formData.get('message'),
+    }
+
+    try {
+      const response = await fetch('/api/send-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      })
+
+      const result = await response.json()
+
+      if (!response.ok) {
+        throw new Error(result.error || 'Wystąpił błąd podczas wysyłania')
+      }
+
+      setSubmitted(true)
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Wystąpił błąd podczas wysyłania')
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
@@ -162,6 +196,7 @@ export function Contact() {
                             required={field.required}
                             placeholder={field.placeholder}
                             className="h-11 rounded-lg border border-input bg-card px-3.5 text-sm text-foreground outline-none transition-colors placeholder:text-muted-foreground/60 focus:border-primary focus:ring-2 focus:ring-primary/30"
+                            disabled={loading}
                           />
                         </div>
                       ))}
@@ -178,16 +213,33 @@ export function Contact() {
                         rows={4}
                         placeholder="Opowiedz nam krótko o swoim biznesie i celach…"
                         className="resize-none rounded-lg border border-input bg-card px-3.5 py-3 text-sm text-foreground outline-none transition-colors placeholder:text-muted-foreground/60 focus:border-primary focus:ring-2 focus:ring-primary/30"
+                        disabled={loading}
                       />
                     </div>
+
+                    {error && (
+                      <div className="rounded-lg bg-red-500/10 p-3 text-sm text-red-500">
+                        {error}
+                      </div>
+                    )}
 
                     <Button
                       type="submit"
                       size="lg"
                       className="mt-1 h-12 w-full text-sm font-semibold"
+                      disabled={loading}
                     >
-                      Wyślij wiadomość
-                      <ArrowRight className="size-4" />
+                      {loading ? (
+                        <>
+                          <Loader2 className="mr-2 size-4 animate-spin" />
+                          Wysyłanie...
+                        </>
+                      ) : (
+                        <>
+                          Wyślij wiadomość
+                          <ArrowRight className="size-4" />
+                        </>
+                      )}
                     </Button>
                     <p className="text-center text-xs text-muted-foreground">
                       Wysyłając formularz akceptujesz politykę prywatności.
