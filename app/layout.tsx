@@ -69,23 +69,6 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pl">
-  <head>
-<link
-  rel="preload"
-  as="style"
-  href="/_next/static/css/app/layout.css"
-  fetchPriority="high"
-/>
-<link
-  rel="preconnect"
-  href="https://fonts.googleapis.com"
-/>
-<link
-  rel="preconnect"
-  href="https://fonts.gstatic.com"
-  crossOrigin="anonymous"
-/>
-      </head>
       <body className={inter.className}>
         {children}
       </body>
