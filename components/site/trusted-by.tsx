@@ -4,12 +4,12 @@ import Image from 'next/image'
 import { Reveal } from './reveal'
 
 const logos = [
-  { name: 'Meta Ads', src: '/logos/meta.png' },
-  { name: 'Google Ads', src: '/logos/google.png' },
-  { name: 'google Ads', src: '/logos/google2.png' },
-  { name: 'LinkedIN Ads', src: '/logos/linked.png' },
-  { name: 'Allegro Ads', src: '/logos/allegro.png' },
-  { name: 'Tiktok Ads', src: '/logos/tiktok.png' },
+  { name: 'Meta Ads', src: '/logos/meta.webp' },
+  { name: 'Google Ads', src: '/logos/google.webp' },
+  { name: 'google Ads', src: '/logos/google2.webp' },
+  { name: 'LinkedIN Ads', src: '/logos/linked.webp' },
+  { name: 'Allegro Ads', src: '/logos/allegro.webp' },
+  { name: 'Tiktok Ads', src: '/logos/tiktok.webp' },
 ]
 
 export function TrustedBy() {
